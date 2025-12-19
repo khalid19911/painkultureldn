@@ -19,6 +19,7 @@ function Register() {
     console.log(email);
     console.log(password);
     console.log(confirmPassword);
+    console.log("Success");
   };
 
   return (
