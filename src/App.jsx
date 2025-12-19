@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Newsletter from "../components/Newsletter";
 
-import Login from "../pages/login";
+import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 function App() {
