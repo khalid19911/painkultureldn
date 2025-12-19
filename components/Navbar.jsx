@@ -2,9 +2,12 @@ import Logo from "../assets/images/pain_kulture_logo.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router";
+import { UserAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { session } = UserAuth();
 
   return (
     <nav className="relative flex items-center justify-between w-full px-8 py-4 shadow-md">
@@ -26,12 +29,16 @@ function Navbar() {
         <Link to="/About" className="hover:text-blue-600 transition">
           About
         </Link>
-        <Link
-          to="/Login"
-          className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200 transition"
-        >
-          Login
-        </Link>
+        {!session ? (
+          <Link
+            to="/Login"
+            className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200 transition"
+          >
+            Login
+          </Link>
+        ) : (
+          <span className="text-white">{session.user?.email}</span>
+        )}
       </div>
 
       {/* Mobile Hamburger */}
@@ -58,9 +65,15 @@ function Navbar() {
             About
           </button>
           <div className="text-center">
-            <button className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200">
-              Login
-            </button>
+            {!session ? (
+              <button className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200">
+                Login
+              </button>
+            ) : (
+              <button className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200">
+                Sign Out
+              </button>
+            )}
           </div>
         </div>
       )}

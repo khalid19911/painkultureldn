@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import Logo from "../assets/images/pain_kulture_logo.png";
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 function Register() {
+  const { session, signUpNewUser } = UserAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
@@ -14,11 +18,37 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const HandleRegister = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(password)
+    ) {
+      alert(
+        "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character."
+      );
+      return;
+    }
+
+    try {
+      const result = await signUpNewUser(email, password);
+      if (result.success) {
+        console.log("User registered successfully:", result.data);
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Registration failed:", result.error);
+    } finally {
+      console.log("Registration process completed.");
+    }
+
     console.log("Success");
   };
 
