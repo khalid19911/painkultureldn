@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+background-color: black;
+color: white;
+}
+
+a {
+
+}
+a:hover {
+
+}
+
+body {
+
+}
+
+h1 {
+  
+}
+
+button {
+
+}
+button:hover {
+  color: grey
+
+}
+button:focus,
+button:focus-visible {
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+
+  }
+  a:hover {
+  }
+  button {
+  }
+}
