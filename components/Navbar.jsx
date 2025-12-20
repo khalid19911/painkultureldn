@@ -3,11 +3,23 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router";
 import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { session } = UserAuth();
+  const { session, signOutUser } = UserAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async (e) => {
+    e.preventDefault();
+    try {
+      await signOutUser();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <nav className="relative flex items-center justify-between w-full px-8 py-4 shadow-md">
@@ -37,7 +49,18 @@ function Navbar() {
             Login
           </Link>
         ) : (
-          <span className="text-white">{session.user?.email}</span>
+          <>
+            <span className="text-white">Hi, {session.user?.email}</span>
+            <button
+              className="border-2 rounded-full bg-white text-black px-4 py-2
+             hover:bg-red-600 hover:text-white
+             transition-colors duration-300
+             active:scale-95"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+          </>
         )}
       </div>
 
@@ -66,11 +89,18 @@ function Navbar() {
           </button>
           <div className="text-center">
             {!session ? (
-              <button className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200">
+              <Link
+                to="/Login"
+                className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
                 Login
-              </button>
+              </Link>
             ) : (
-              <button className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200">
+              <button
+                className="border-2 rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200"
+                onClick={handleSignOut}
+              >
                 Sign Out
               </button>
             )}

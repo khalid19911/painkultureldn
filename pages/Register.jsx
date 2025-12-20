@@ -104,7 +104,7 @@ function Register() {
 
             <div className="flex flex-row text-sm justify-center gap-1">
               <p> Already have an account?</p>
-              <a href="/Register" className="text-blue-400">
+              <a href="/Login" className="text-blue-400">
                 Sign in
               </a>
             </div>

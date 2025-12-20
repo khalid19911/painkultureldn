@@ -18,7 +18,7 @@ function Newsletter() {
 "
       >
         {/* LEFT — Text + Form */}
-        <div className="w-full lg:w-2/3">
+        <div className="w[75%] lg:w-2/3">
           <h1 className="text-2xl md:text-2xl font-bold text-white">
             Sign up for our newsletter
           </h1>
